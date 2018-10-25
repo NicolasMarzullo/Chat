@@ -1,6 +1,6 @@
 package edu.unlam.cliente;
 
-import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -14,18 +14,24 @@ public class Cliente {
 		this.ip = ip;
 		
 		try {
-			Socket cliente = new Socket(ip,puerto);
-			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
+			Socket enlaceServer = new Socket(ip,puerto); //Creo un cliente y se conecta con el server
+			DataOutputStream salidaCliente = new DataOutputStream(enlaceServer.getOutputStream());
 			
-			System.out.println(entrada.readUTF());
+			new GUI().setVisible(true);
 			
-			entrada.close();
-			cliente.close();
+			
+		
+			salidaCliente.writeUTF("holis");
+			
+			salidaCliente.close();
+			enlaceServer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	
 	
